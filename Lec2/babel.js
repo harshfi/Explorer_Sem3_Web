@@ -18,9 +18,10 @@ function App(props){
     )
 }
 
-
+// App()
 // let elemet= App("harsh");
 // let elemet= <App props="harsh" />;
+{/* <App/> */}
 let elemet=<App props></App>
 
 console.log(elemet)

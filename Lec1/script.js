@@ -1,7 +1,7 @@
 
 // let elemet1= document.createElement('h1');
 
-// const { createElement } = require("react")
+// 
 
 // elemet1.textContent="harsh is a good boy"
 // elemet1.className="heading"
@@ -14,6 +14,25 @@
 // elemet2.className="head2"
 // elemet1.style.backgroundColor="yellow"
 
+ function createElement (tag,att,content){
+
+    let elemet= document.createElement(tag);
+    elemet.textContent=content;
+
+    for(let key in att){
+        if(key==="style"){
+            Object.assign(elemet[key],att[key])
+        }
+        else
+        elemet[key]= att[key];
+    }
+      
+    return elemet
+
+}
+
+// let root=document.getElementById('id');
+// root.app
 // {
 //     className:HTMLHeadingElement,
 //     id="first",
