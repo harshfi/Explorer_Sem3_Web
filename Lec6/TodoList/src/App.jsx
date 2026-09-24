@@ -3,15 +3,11 @@ import { useState } from "react";
 import './app.css'
 
 
-{
-  
-
-}
-
 function App(){
    let [task,useTask]= useState("")
    let [todos,useTodos]= useState([])
 
+  
    function changeTask(e){
         task=e.target.value
         useTask(task)
@@ -61,9 +57,9 @@ function App(){
     <ul>
       Todos
       {
-        todos.map((todo,idx)=> <li style={{backgroundColor:todo.isCompleted?"green":"red"}} key={idx}>{todo.task}
-          <button onClick={()=>deleteTask(idx)}>Delete</button> 
-        <button onClick={()=>completeTask(idx)} >complete</button>
+        todos.map((todo, idx)=> <li style={{backgroundColor:todo.isCompleted?"green":"red"}} >{todo.task}
+          <button >Delete</button> 
+        <button  >complete</button>
             </li>)
       }
       
