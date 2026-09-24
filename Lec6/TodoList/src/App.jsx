@@ -2,6 +2,12 @@
 import { useState } from "react";
 import './app.css'
 
+
+{
+  
+
+}
+
 function App(){
    let [task,useTask]= useState("")
    let [todos,useTodos]= useState([])
@@ -14,8 +20,14 @@ function App(){
 
    function addTask(){
        if(task.trim()==="")return;
+       
+       let obj={
+        id:todos.length+1,
+        task:task,
+        isCompleted:false
+       }
 
-       todos=[...todos,task];
+       todos=[...todos,obj];
        useTodos(todos)
        useTask("")
 
@@ -23,6 +35,18 @@ function App(){
 
    function deleteTask(idx){
     let newArr=todos.filter((todo,index)=>index!==idx)
+    useTodos(newArr)
+
+   }
+   function completeTask(idx){
+    
+    let newArr=[];
+    for(let i=0;i<todos.length;i++){
+      if(i===idx){
+        todos[i].isCompleted=true;
+      }
+      newArr.push(todos[i])
+    }
     useTodos(newArr)
 
    }
@@ -37,7 +61,9 @@ function App(){
     <ul>
       Todos
       {
-        todos.map((todo,idx)=> <li key={idx}>{todo}  <button onClick={()=>deleteTask(idx)}>Delete</button>
+        todos.map((todo,idx)=> <li style={{backgroundColor:todo.isCompleted?"green":"red"}} key={idx}>{todo.task}
+          <button onClick={()=>deleteTask(idx)}>Delete</button> 
+        <button onClick={()=>completeTask(idx)} >complete</button>
             </li>)
       }
       
