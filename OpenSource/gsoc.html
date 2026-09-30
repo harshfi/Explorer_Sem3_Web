@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GSoC Project Shortlist | Mirai School of Technology</title>
+<meta name="description" content="The GSoC projects that selected the most contributors from 2022 to 2026: top 15 overall, top 15 JavaScript/TypeScript repos and top 15 Java/Kotlin repos, with repo links and organization details.">
+<meta property="og:title" content="GSoC Project Shortlist">
+<meta property="og:description" content="Top active Google Summer of Code projects ranked by contributors selected, 2022–2026.">
+<meta property="og:type" content="website">
+<style>html{-webkit-text-size-adjust:100%}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column — intro, filter bar, 15 ranked project entries, then an org directory and how-to-apply steps. */
+:root{
+  --bg:#f5f6f9; --surface:#ffffff; --fg:#161a2b; --muted:#5b6178; --line:#dde0ea;
+  --accent:#3140c4; --accent-soft:#e7e9fb; --amber:#b86b00; --amber-soft:#fbefdc; --ok:#1d7a4a; --ok-soft:#e1f3e8; --warn:#9a5b00;
+  --bar:#b9bfe8; --bar-now:#3140c4;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0f1220; --surface:#171b2e; --fg:#e8eaf4; --muted:#a0a6c0; --line:#2a3050;
+  --accent:#8f9bff; --accent-soft:#232a52; --amber:#f0b35a; --amber-soft:#3a2b14; --ok:#6fd49c; --ok-soft:#15301f; --warn:#f0b35a;
+  --bar:#3a4372; --bar-now:#8f9bff; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0f1220; --surface:#171b2e; --fg:#e8eaf4; --muted:#a0a6c0; --line:#2a3050;
+  --accent:#8f9bff; --accent-soft:#232a52; --amber:#f0b35a; --amber-soft:#3a2b14; --ok:#6fd49c; --ok-soft:#15301f; --warn:#f0b35a;
+  --bar:#3a4372; --bar-now:#8f9bff; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:40px 64px}
+a{color:var(--accent);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.02em}
+h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
+h3{font-size:19px;font-weight:700}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{max-width:66ch;color:var(--muted);font-size:16px;margin:12px 0 0}
+.mono{font-family:var(--mono);font-size:13px}
+header{display:grid;gap:6px;margin-bottom:28px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:14px;font-size:13px;color:var(--muted)}
+.facts b{color:var(--fg);font-weight:600}
+
+.note{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--muted);max-width:none}
+.note strong{color:var(--fg)}
+
+.filters{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;margin-block:20px 8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.filters span{font-size:13px;color:var(--muted);margin-right:4px}
+.chip{font:500 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.count{margin-left:auto;font-size:13px;color:var(--muted)}
+
+.list{display:grid;gap:14px;margin-top:14px}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:44px minmax(0,1fr) 200px;gap:4px 18px}
+.rank{font-family:var(--display);font-size:28px;font-weight:700;color:var(--accent);line-height:1}
+.main{min-width:0;display:grid;gap:8px}
+.org{font-size:13px;color:var(--muted)}
+.org b{color:var(--fg);font-weight:600}
+.desc{margin:0;max-width:68ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font:500 12px var(--mono);background:var(--accent-soft);color:var(--accent);padding:2px 8px;border-radius:5px}
+.links{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px}
+.links a{font-family:var(--mono);font-size:13px;word-break:break-all}
+.tip{font-size:13.5px;color:var(--muted);margin:0;max-width:68ch}
+.tip b{color:var(--fg);font-weight:600}
+.side{display:grid;gap:10px;align-content:start}
+.stat{display:flex;align-items:baseline;gap:8px}
+.stat .n{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .l{font-size:12px;color:var(--muted);line-height:1.3}
+.bars{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;align-items:end;height:64px}
+.bar{display:grid;grid-template-rows:1fr auto;justify-items:center;height:100%;gap:2px}
+.bar i{display:block;width:100%;max-width:26px;background:var(--bar);border-radius:3px 3px 0 0;align-self:end;min-height:2px}
+.bar.now i{background:var(--bar-now)}
+.bar em{font:500 11px var(--mono);font-style:normal;color:var(--fg);font-variant-numeric:tabular-nums}
+.yrs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;font:400 10.5px var(--mono);color:var(--muted);text-align:center}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--ok-soft);color:var(--ok);width:max-content}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.status.cycle{background:var(--amber-soft);color:var(--warn)}
+
+.tabs{display:flex;flex-wrap:wrap;gap:4px;margin-top:24px;border-bottom:2px solid var(--line)}
+.tab{font:600 15px var(--body);background:none;border:0;color:var(--muted);padding:10px 14px;margin-bottom:-2px;border-bottom:2px solid transparent;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.sec-head.tight{margin:22px 0 4px}
+.orgline{display:grid;gap:6px;font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.orgline .top{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.orgline .top b{font-size:13.5px}
+.orgline .ol{display:flex;flex-wrap:wrap;gap:4px 14px}
+.orgline .ol a{font-family:var(--body);font-size:13px;word-break:normal}
+section{margin-top:56px}
+.sec-head{display:grid;gap:6px;margin-bottom:18px}
+.orgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.orgcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:10px;align-content:start;min-width:0}
+.orgcard .meta{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-size:12px;padding:2px 8px;border-radius:5px;background:var(--amber-soft);color:var(--warn);font-weight:600;font-variant-numeric:tabular-nums}
+.pill.blue{background:var(--accent-soft);color:var(--accent)}
+dl{display:grid;grid-template-columns:92px minmax(0,1fr);gap:6px 10px;margin:0;font-size:13.5px}
+dt{color:var(--muted)}
+dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.steps{display:grid;gap:12px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:20px;color:var(--accent)}
+.steps b{display:block}
+.steps p{margin:2px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
+footer{margin-top:48px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;display:grid;gap:6px}
+
+@media (max-width:720px){
+  .proj{grid-template-columns:36px minmax(0,1fr)}
+  .side{grid-column:1 / -1;grid-template-columns:1fr 1fr;align-items:end;border-top:1px solid var(--line);padding-top:12px;margin-top:6px}
+  .side .status{grid-column:1 / -1}
+  .rank{font-size:22px}
+  .count{margin-left:0;width:100%}
+}
+@media (max-width:420px){ dl{grid-template-columns:1fr} dt{margin-top:4px} }
+@media (prefers-reduced-motion:no-preference){ .proj{transition:border-color .15s} .proj:hover{border-color:var(--accent)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Google Summer of Code · Shortlist for MSOT students</div>
+    <h1>GSoC projects that select the most contributors</h1>
+    <p class="lede">Three ranked lists of 15: the top projects overall, the top JavaScript / TypeScript repos, and the top Java / Kotlin repos. Every project here took GSoC contributors in 2026 and had commits in 2026. Each list is ranked by how many contributors the project selected from 2022 to 2026.</p>
+    <div class="facts">
+      <span>Data covers <b>GSoC 2022–2026</b></span>
+      <span>Repos checked <b>30 Sep 2026</b></span>
+      <span>Bars show <b>contributors selected per year</b></span>
+    </div>
+  </header>
+
+  <div class="note"><strong>How to read the numbers.</strong> Selections for umbrella orgs (Apache, NumFOCUS, CERN-HSF, ML4SCI, Linux Foundation) were grouped by sub-project using the accepted project titles, so treat them as close estimates. The ideas pages linked below are the 2026 ones. The GSoC 2027 organization list normally comes out in February; check each org's 2027 ideas page once it's live.</div>
+
+  <div class="tabs" role="tablist" aria-label="Choose a list">
+    <button class="tab" role="tab" id="tab-all" data-v="all" aria-selected="true">Overall</button>
+    <button class="tab" role="tab" id="tab-js" data-v="js" aria-selected="false">JS / TypeScript</button>
+    <button class="tab" role="tab" id="tab-java" data-v="java" aria-selected="false">Java / Kotlin</button>
+  </div>
+
+  <div id="view-js" class="view" hidden>
+    <div class="sec-head tight">
+      <h2>Top 15 JavaScript / TypeScript repos</h2>
+      <p class="lede">For students who know React, Node.js, Angular, Vue or plain JavaScript. Several of these have a Python or Ruby backend too; the tags show the full stack.</p>
+    </div>
+    <div class="list" id="list-js"></div>
+  </div>
+
+  <div id="view-java" class="view" hidden>
+    <div class="sec-head tight">
+      <h2>Top 15 Java / Kotlin repos</h2>
+      <p class="lede">For students who know Java, Spring or Android. Kotlin projects are included because Java developers pick Kotlin up quickly and these orgs mentor for it.</p>
+    </div>
+    <div class="list" id="list-java"></div>
+  </div>
+
+  <div id="view-all" class="view">
+  <div class="filters" role="toolbar" aria-label="Filter by language">
+    <span>Language</span>
+    <button class="chip" id="f-all" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" id="f-js" data-f="js" aria-pressed="false">JavaScript / TS</button>
+    <button class="chip" id="f-java" data-f="java" aria-pressed="false">Java / Kotlin</button>
+    <button class="chip" id="f-py" data-f="py" aria-pressed="false">Python</button>
+    <button class="chip" id="f-cpp" data-f="cpp" aria-pressed="false">C / C++</button>
+    <button class="chip" id="f-ml" data-f="ml" aria-pressed="false">ML / AI</button>
+    <button class="chip" id="f-julia" data-f="julia" aria-pressed="false">Julia</button>
+    <span class="count" id="count" aria-live="polite"></span>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <section id="orgs">
+    <div class="sec-head">
+      <div class="eyebrow">Organization directory</div>
+      <h2>Where to apply and who to talk to</h2>
+      <p class="lede">Every organization behind the 15 projects, with its GSoC history, 2026 slots, ideas list, application guide and chat channel.</p>
+    </div>
+    <div class="orgs" id="orgcards"></div>
+  </section>
+  </div>
+
+  <section id="steps">
+    <div class="sec-head">
+      <div class="eyebrow">For students</div>
+      <h2>How to get selected</h2>
+    </div>
+    <ol class="steps">
+      <li><div><b>Pick one project, not five</b><p>Choose the one that matches the language you already write. Selections go to people the mentors already know from the repo.</p></div></li>
+      <li><div><b>Set it up and join the chat</b><p>Build the project locally, introduce yourself in the org's chat channel, and read its contributing guide before asking questions.</p></div></li>
+      <li><div><b>Land small pull requests early</b><p>Start with issues tagged "good first issue" or "help wanted". Zulip, Rocket.Chat and Mifos look for merged PRs before they shortlist anyone. ML4SCI and CERN-HSF ask you to finish an evaluation task instead.</p></div></li>
+      <li><div><b>Write the proposal around a listed idea</b><p>When the ideas page goes live (usually February), pick an idea, talk to its mentor, and share a draft before the deadline. Include a week-by-week timeline and links to your PRs.</p></div></li>
+      <li><div><b>Submit during the application window</b><p>Contributor applications usually open in March and close in early April. Results come out in May.</p></div></li>
+    </ol>
+  </section>
+
+  <footer>
+    <span>Selection counts come from the official GSoC archive, via the open dataset at github.com/nishantwrp/gsoc-organizations. Repository activity was checked from each repo's latest commit on 30 Sep 2026.</span>
+    <span>GSoC organizations and their slots change every year. Being selected before does not guarantee an org will take part in 2027.</span>
+  </footer>
+</div>
+
+<script>
+const YEARS=[2022,2023,2024,2025,2026];
+const MAX=13;
+const P=[
+ {name:"OpenPrinting (CUPS, CPDB, Printer Apps)",org:"The Linux Foundation",orgId:"lf",f:["cpp","py"],
+  desc:"The printing stack every Linux distribution ships: the CUPS print server, the Common Print Dialog Backends, PAPPL and printer applications.",
+  tech:["C","C++","Python","Linux"],y:[6,5,11,11,10],last:"2026-09-29",
+  links:[["github.com/OpenPrinting","https://github.com/OpenPrinting"],["cups","https://github.com/OpenPrinting/cups"],["cpdb-libs","https://github.com/OpenPrinting/cpdb-libs"]],
+  tip:"The single biggest taker in GSoC right now. Good fit for students comfortable with C and Linux."},
+ {name:"Zulip server & web app",org:"Zulip",orgId:"zulip",f:["py","js"],
+  desc:"Open-source team chat. Most projects land in the main repo, which holds the Django backend and the TypeScript web client.",
+  tech:["Python","Django","TypeScript","CSS"],y:[11,8,9,9,6],last:"2026-09-29",
+  links:[["zulip/zulip","https://github.com/zulip/zulip"],["zulip/zulip-flutter","https://github.com/zulip/zulip-flutter"]],
+  tip:"Very well documented for newcomers. <b>Merged PRs are expected before you apply.</b>"},
+ {name:"Rocket.Chat (server, web client & Apps-Engine)",org:"Rocket.Chat",orgId:"rc",f:["js"],
+  desc:"Open-source team chat platform. The monorepo holds the Node.js server, the React web client, Livechat, UI Kit and the Apps-Engine that marketplace apps run on.",
+  tech:["TypeScript","Node.js","React","MongoDB"],y:[9,5,4,7,7],last:"2026-09-29",
+  links:[["RocketChat/Rocket.Chat","https://github.com/RocketChat/Rocket.Chat"],["RocketChat/EmbeddedChat","https://github.com/RocketChat/EmbeddedChat"]],
+  tip:"<b>Best pick for JS/Node students.</b> Counts cover the monorepo. Counting the AI apps and mobile app too, the org took 10–19 people a year."},
+ {name:"QMLHEP (Quantum ML for particle physics)",org:"ML4SCI",orgId:"ml4sci",f:["py","ml"],
+  desc:"Quantum machine learning models applied to high-energy physics data, such as quantum GNNs and quantum transformers for jet classification.",
+  tech:["Python","PyTorch","PennyLane","Qiskit"],y:[4,6,11,5,5],last:"2026-09-28",
+  links:[["ML4SCI/QMLHEP","https://github.com/ML4SCI/QMLHEP"]],
+  tip:"Selection depends on an evaluation test posted with the ideas list, not on PRs."},
+ {name:"DeepLense (dark matter via gravitational lensing)",org:"ML4SCI",orgId:"ml4sci",f:["py","ml"],
+  desc:"Deep learning on strong-lensing images to study dark matter: classification, super-resolution, diffusion models and foundation models.",
+  tech:["Python","PyTorch","Computer vision"],y:[6,5,6,7,7],last:"2025-12-31",cycle:true,
+  links:[["ML4SCI/DeepLense","https://github.com/ML4SCI/DeepLense"]],
+  tip:"Steadiest ML project in GSoC. The repo is updated each GSoC cycle, so expect quiet months between cycles."},
+ {name:"Clang & ClangIR",org:"LLVM Compiler Infrastructure",orgId:"llvm",f:["cpp"],
+  desc:"The C/C++ compiler front end: diagnostics, static analysis, clang-tidy, clangd and the new ClangIR MLIR-based pipeline.",
+  tech:["C++","Compilers","MLIR"],y:[4,9,6,4,7],last:"2026-09-29",
+  links:[["llvm/llvm-project","https://github.com/llvm/llvm-project"]],
+  tip:"Hard, but highly valued. Students with strong C++ and DSA do well here."},
+ {name:"PyMC, ArviZ & PyTensor",org:"NumFOCUS",orgId:"numfocus",f:["py","ml"],
+  desc:"Bayesian modeling and probabilistic programming in Python, with ArviZ for diagnostics and PyTensor as the tensor backend.",
+  tech:["Python","Statistics","NumPy"],y:[9,2,5,3,3],last:"2026-09-29",
+  links:[["pymc-devs/pymc","https://github.com/pymc-devs/pymc"],["arviz-devs/arviz","https://github.com/arviz-devs/arviz"],["pymc-devs/pytensor","https://github.com/pymc-devs/pytensor"]],
+  tip:"Largest sub-project inside NumFOCUS. Some statistics background helps."},
+ {name:"Apache Fineract (core banking)",org:"The Mifos Initiative + Apache",orgId:"mifos",f:["java"],
+  desc:"Open-source core banking platform used by microfinance institutions: loans, savings, accounting and REST APIs.",
+  tech:["Java","Spring Boot","REST","MySQL/PostgreSQL"],y:[3,3,2,3,9],last:"2026-09-29",
+  links:[["apache/fineract","https://github.com/apache/fineract"]],
+  tip:"<b>Best pick for Java students.</b> Slots come from both Mifos and Apache (5 extra via Apache in 2026)."},
+ {name:"Clad & CppInterOp (compiler-research)",org:"CERN-HSF",orgId:"cern",f:["cpp"],
+  desc:"Automatic differentiation as a Clang plugin (Clad) and a C++ interoperability layer used by cppyy and xeus-cpp (CppInterOp).",
+  tech:["C++","Clang","LLVM"],y:[1,4,3,6,4],last:"2026-09-29",
+  links:[["vgvassilev/clad","https://github.com/vgvassilev/clad"],["compiler-research/CppInterOp","https://github.com/compiler-research/CppInterOp"]],
+  tip:"Growing fast. The mentors are active and welcoming to new C++ contributors."},
+ {name:"Apache Airavata",org:"Apache Software Foundation",orgId:"asf",f:["java","py","js"],
+  desc:"Middleware for science gateways: job submission to clusters, file transfer (MFT) and research catalogs.",
+  tech:["Java","Python","React","gRPC"],y:[5,2,2,5,3],last:"2026-09-29",
+  links:[["apache/airavata","https://github.com/apache/airavata"]],
+  tip:"The most consistent Apache project in GSoC: selected people in every year."},
+ {name:"JuliaGPU (CUDA.jl, AMDGPU.jl, KernelAbstractions)",org:"The Julia Language",orgId:"julia",f:["julia","cpp"],
+  desc:"GPU programming in Julia: CUDA, AMD and Apple Metal back ends and portable kernels.",
+  tech:["Julia","CUDA","GPU"],y:[1,3,2,2,8],last:"2026-09-29",
+  links:[["JuliaGPU/CUDA.jl","https://github.com/JuliaGPU/CUDA.jl"],["JuliaGPU org","https://github.com/JuliaGPU"]],
+  tip:"Jumped to 8 selections in 2026. Low competition because few students know Julia."},
+ {name:"Mifos mobile apps (Kotlin Multiplatform)",org:"The Mifos Initiative",orgId:"mifos",f:["java"],
+  desc:"The field-officer app, the Mifos mobile banking app and the Mifos Pay wallet, moving to Kotlin Multiplatform and Compose.",
+  tech:["Kotlin","Compose","Android","KMP"],y:[3,3,4,3,2],last:"2026-09-21",
+  links:[["openMF/android-client","https://github.com/openMF/android-client"],["openMF/mifos-mobile","https://github.com/openMF/mifos-mobile"],["openMF/mobile-wallet","https://github.com/openMF/mobile-wallet"]],
+  tip:"A natural step for Java students moving to Kotlin. Mifos also selects many students from India."},
+ {name:"CERN ROOT (TMVA, SOFIE, RNTuple)",org:"CERN-HSF",orgId:"cern",f:["cpp","py","ml"],
+  desc:"CERN's data analysis framework for particle physics, including the SOFIE ML-inference engine and the RNTuple storage format.",
+  tech:["C++","Python","ML inference"],y:[4,1,1,4,3],last:"2026-09-29",
+  links:[["root-project/root","https://github.com/root-project/root"]],
+  tip:"CERN-HSF asks for an evaluation task per project. Check each idea's requirements."},
+ {name:"Apache Beam",org:"Apache Software Foundation",orgId:"asf",f:["java","py"],
+  desc:"A unified model for batch and streaming data pipelines that run on Flink, Spark and Google Dataflow.",
+  tech:["Java","Python","Go","YAML"],y:[1,2,2,4,3],last:"2026-09-29",
+  links:[["apache/beam","https://github.com/apache/beam"]],
+  tip:"A good pick for students interested in data engineering and backend work."},
+ {name:"OWTF (Offensive Web Testing Framework)",org:"OWASP Foundation",orgId:"owasp",f:["py","js"],
+  desc:"Automates web penetration testing by chaining security tools, with a React dashboard for results.",
+  tech:["Python","React","Security"],y:[2,2,3,2,3],last:"2026-09-03",
+  links:[["owtf/owtf","https://github.com/owtf/owtf"]],
+  tip:"Selected people every year from 2022 to 2026. The entry point for security-minded students."}
+];
+
+const O=[
+ {id:"lf",name:"The Linux Foundation",since:"2016",years:11,slots:19,tech:"C, Linux, CUPS, Zephyr, kernel",
+  site:"https://www.linuxfoundation.org/",ideas:"https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/Google-Summer-of-Code-2026",guide:"https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/Google-Summer-of-Code-2026",chat:"https://github.com/LinuxFoundationGSoC/ProjectIdeas/wiki/Google-Summer-of-Code-2026#contact-us",email:"till@linux.com (OpenPrinting)"},
+ {id:"zulip",name:"Zulip",since:"2017",years:9,slots:11,tech:"Python, Django, TypeScript, Flutter",
+  site:"https://zulip.com/",ideas:"https://zulip.readthedocs.io/en/latest/outreach/gsoc.html",guide:"https://zulip.readthedocs.io/en/latest/outreach/apply.html",chat:"https://chat.zulip.org/",email:""},
+ {id:"ml4sci",name:"Machine Learning for Science (ML4SCI)",since:"2022",years:5,slots:33,tech:"Python, PyTorch, ML, physics",
+  site:"https://ml4sci.org/",ideas:"https://ml4sci.org/activities/gsoc2026.html",guide:"https://ml4sci.org/activities/gsoc2026.html",chat:"https://app.gitter.im/#/room/#ML4SCI_general:gitter.im",email:""},
+ {id:"llvm",name:"LLVM Compiler Infrastructure",since:"2016",years:11,slots:13,tech:"C++, Clang, MLIR",
+  site:"https://llvm.org/",ideas:"https://llvm.org/OpenProjects.html",guide:"https://discourse.llvm.org/t/gsoc-2026-projects-proposals-and-other-information/89967",chat:"https://discourse.llvm.org/c/community/gsoc/",email:""},
+ {id:"numfocus",name:"NumFOCUS",since:"2016",years:11,slots:27,tech:"Python, C++, R, Julia",
+  site:"https://numfocus.org/",ideas:"https://github.com/numfocus/gsoc/blob/master/2026/ideas-list.md",guide:"https://github.com/numfocus/gsoc/blob/master/CONTRIBUTING-contributors.md",chat:"https://groups.google.com/a/numfocus.org/forum/#!forum/gsoc",email:"info@numfocus.org"},
+ {id:"mifos",name:"The Mifos Initiative",since:"2016",years:10,slots:13,tech:"Java, Spring, Kotlin, Angular",
+  site:"https://mifos.org/",ideas:"https://mifosforge.jira.com/wiki/spaces/RES/pages/5021990914/2026+Google+Summer+of+Code+Ideas+List",guide:"https://mifosforge.jira.com/wiki/spaces/RES/pages/4456638/Application+Template",chat:"https://mifos.short.gy/slack",email:"info@mifos.org"},
+ {id:"rc",name:"Rocket.Chat",since:"2017",years:10,slots:10,tech:"TypeScript, Node.js, React, LLMs",
+  site:"https://github.com/RocketChat",ideas:"https://github.com/RocketChat/google-summer-of-code/blob/main/google-summer-of-code-2026.md#-project-ideas",guide:"https://github.com/RocketChat/google-summer-of-code/blob/main/google-summer-of-code-2026.md#how-to-apply",chat:"https://open.rocket.chat/channel/opensource2026",email:"gsoc+2026@rocket.chat"},
+ {id:"asf",name:"Apache Software Foundation",since:"2016",years:11,slots:34,tech:"Java, C, C++, Python",
+  site:"https://apache.org/",ideas:"https://s.apache.org/gsoc2026ideas",guide:"https://community.apache.org/gsoc/",chat:"https://apache.org/foundation/mailinglists.html",email:"Each project's dev@ mailing list"},
+ {id:"julia",name:"The Julia Language",since:"2016",years:10,slots:12,tech:"Julia, GPU, ML, compilers",
+  site:"https://julialang.org/",ideas:"https://julialang.org/jsoc/projects/",guide:"https://julialang.org/jsoc/guidelines/",chat:"https://julialang.org/slack/",email:""},
+ {id:"cern",name:"CERN-HSF",since:"2017",years:10,slots:26,tech:"C++, Python, ML, HPC",
+  site:"https://hepsoftwarefoundation.org/activities/gsoc.html",ideas:"https://hepsoftwarefoundation.org/gsoc/2026/summary.html",guide:"https://hepsoftwarefoundation.org/activities/gsoc.html#for-students",chat:"",email:"hsf-gsoc-admin@googlegroups.com"},
+ {id:"owasp",name:"OWASP Foundation",since:"2016",years:10,slots:26,tech:"Python, JavaScript, Java, security",
+  site:"https://owasp.org/",ideas:"https://owasp.org/www-community/initiatives/gsoc/gsoc2026ideas",guide:"https://owasp.org/www-community/initiatives/gsoc/gsoc2026ideas",chat:"https://owasp.org/slack/invite",email:"gsoc-admins@owasp.org"}
+];
+
+const X=[
+ {id:"oppia",name:"Oppia Foundation",y5:5,slots:7,site:"https://www.oppia.org",ideas:"https://github.com/oppia/oppia/wiki/Google-Summer-of-Code-2026",guide:"https://github.com/oppia/oppia/wiki/Google-Summer-of-Code-2026#getting-started",chat:"https://github.com/oppia/oppia/discussions",email:""},
+ {id:"cv",name:"CircuitVerse.org",y5:5,slots:6,site:"https://circuitverse.org/",ideas:"https://github.com/CircuitVerse/CircuitVerse/wiki/GSoC'26-Project-List",guide:"https://docs.google.com/document/d/1oeYPAuqWxeC79d-R5I9uFJywQJv4ooO4obF4pwifyTY/edit",chat:"https://github.com/CircuitVerse/CircuitVerse/discussions",email:""},
+ {id:"sugar",name:"Sugar Labs",y5:5,slots:10,site:"https://sugarlabs.org",ideas:"https://github.com/sugarlabs/GSoC/blob/master/Ideas-2026.md",guide:"https://github.com/sugarlabs/GSoC",chat:"https://lists.sugarlabs.org/mailman3/lists/sugar-devel.lists.sugarlabs.org/",email:""},
+ {id:"openmrs",name:"OpenMRS",y5:5,slots:8,site:"https://openmrs.org/",ideas:"https://openmrs.atlassian.net/wiki/spaces/RES/pages/752844801/Summer+of+Code+2026",guide:"https://wiki.openmrs.org/display/RES/GSoC+-+Proposal+Guidelines",chat:"https://slack.openmrs.org/",email:""},
+ {id:"processing",name:"Processing Foundation",y5:4,slots:6,site:"https://processingfoundation.org",ideas:"https://github.com/processing/Processing-Foundation-GSoC/wiki/Project-Ideas-List-(GSoC-2026)#project-ideas-list",guide:"https://github.com/processing/Processing-Foundation-GSoC",chat:"https://discourse.processing.org",email:""},
+ {id:"jsonschema",name:"JSON Schema",y5:3,slots:5,site:"https://json-schema.org/",ideas:"https://github.com/json-schema-org/community/blob/main/programs/mentoring/gsoc/gsoc-2026.md",guide:"https://github.com/json-schema-org/community/blob/main/programs/mentoring/gsoc/CONTRIBUTOR-GUIDANCE.md",chat:"https://json-schema.org/slack",email:"info@json-schema.org"},
+ {id:"metabrainz",name:"MetaBrainz Foundation",y5:5,slots:7,site:"https://metabrainz.org",ideas:"https://wiki.musicbrainz.org/Development/Summer_of_Code/2026",guide:"https://wiki.musicbrainz.org/Development/Summer_of_Code/2026",chat:"https://metabrainz.org/contact",email:""},
+ {id:"fossasia",name:"FOSSASIA",y5:3,slots:24,site:"https://fossasia.org",ideas:"https://docs.google.com/document/d/1Tz1KxYefreKzBr98C4vbCv9UwnchZoyTwO8rBrz_lmg/edit",guide:"https://fossasia.org",chat:"",email:"office@fossasia.org"},
+ {id:"cbio",name:"cBioPortal for Cancer Genomics",y5:5,slots:5,site:"https://www.cbioportal.org/",ideas:"https://github.com/cBioPortal/GSoC/issues?q=is%3Aissue%20state%3Aopen%20label%3AGSoC-2026",guide:"https://github.com/cBioPortal/GSoC",chat:"https://slack.cbioportal.org",email:""},
+ {id:"joplin",name:"Joplin",y5:3,slots:5,site:"https://joplinapp.org/",ideas:"https://github.com/joplin/gsoc/blob/master/ideas.md",guide:"https://github.com/joplin/gsoc",chat:"https://discord.com/invite/VSj7AFHvpq",email:""},
+ {id:"stdlib",name:"stdlib",y5:3,slots:5,site:"https://stdlib.io",ideas:"https://github.com/stdlib-js/google-summer-of-code/blob/main/ideas.md",guide:"https://github.com/stdlib-js/google-summer-of-code",chat:"https://stdlib.zulipchat.com",email:""},
+ {id:"jitsi",name:"Jitsi",y5:4,slots:5,site:"https://jitsi.org",ideas:"https://github.com/jitsi/gsoc-ideas/blob/master/2026/README.md",guide:"https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-contributing",chat:"https://community.jitsi.org/",email:"gsoc@jitsi.org"},
+ {id:"appinventor",name:"MIT App Inventor",y5:5,slots:3,site:"https://appinventor.mit.edu",ideas:"https://github.com/mit-cml/appinventor-sources/wiki/Google-Summer-of-Code-2026",guide:"https://community.appinventor.mit.edu/t/google-summer-of-code-gsoc-2026/163196",chat:"https://community.appinventor.mit.edu",email:""},
+ {id:"jenkins",name:"Jenkins",y5:5,slots:5,site:"https://jenkins.io",ideas:"https://www.jenkins.io/projects/gsoc/2026/project-ideas/",guide:"https://www.jenkins.io/projects/gsoc/contributors",chat:"https://community.jenkins.io/c/contributing/gsoc/6",email:""},
+ {id:"checkstyle",name:"Checkstyle",y5:5,slots:6,site:"https://checkstyle.org",ideas:"https://github.com/checkstyle/checkstyle/wiki/Checkstyle-GSoC-2026-Project-Ideas",guide:"https://github.com/checkstyle/checkstyle/blob/master/.github/GSOC.md",chat:"https://discord.gg/FsUsYC2ura",email:""},
+ {id:"kotlin",name:"Kotlin Foundation",y5:4,slots:2,site:"https://kotlinfoundation.org/",ideas:"https://kotlinlang.org/docs/gsoc-2026.html",guide:"https://kotlinlang.org/docs/gsoc-overview.html",chat:"https://slack-chats.kotlinlang.org/c/gsoc",email:"gsoc@kotlinfoundation.org"},
+ {id:"catrobat",name:"International Catrobat Association",y5:5,slots:12,site:"https://www.catrobat.org",ideas:"https://developer.catrobat.org/pages/development/google-summer-of-code/2026/",guide:"https://docs.google.com/document/d/1vOGY2C80raXLV6RVRHXoqiAhcnBJFeZdU8wqMm-Rgo0/edit?usp=sharing",chat:"https://github.com/Catrobat/Catroid#contributing",email:"contact@catrobat.org"},
+ {id:"openelis",name:"OpenELIS Global",y5:3,slots:4,site:"https://openelis-global.org/",ideas:"https://uwdigi.atlassian.net/wiki/spaces/OG/pages/931594241/GSoC+2026",guide:"https://uwdigi.atlassian.net/wiki/spaces/OG/pages/245694473/GSoC+Guidelines+for+Students",chat:"https://talk.openelis-global.org/",email:""},
+ {id:"otsf",name:"Open Transit Software Foundation",y5:3,slots:4,site:"https://opentransitsoftwarefoundation.org",ideas:"https://opentransitsoftwarefoundation.org/2026/01/google-summer-of-code-2026-project-ideas/",guide:"https://opentransitsoftwarefoundation.org/2024/02/how-to-craft-a-successful-gsoc-proposal/",chat:"https://opentransitsoftwarefoundation.org/join-our-slack",email:""},
+ {id:"jpf",name:"The JPF team",y5:5,slots:2,site:"https://github.com/javapathfinder/jpf-core/wiki",ideas:"https://github.com/javapathfinder/jpf-core/wiki/GSoC-2026-Project-Ideas",guide:"https://github.com/javapathfinder/jpf-core/wiki",chat:"https://discord.gg/sX4YZUVHK7",email:""},
+ {id:"jabref",name:"JabRef e.V.",y5:4,slots:3,site:"https://www.jabref.org/",ideas:"https://jabref.github.io/GSoC/projects/",guide:"https://github.com/JabRef/jabref/wiki/GSOC-Application",chat:"https://discourse.jabref.org/",email:""},
+ {id:"anki",name:"AnkiDroid",y5:4,slots:2,site:"https://github.com/ankidroid/Anki-Android",ideas:"https://docs.google.com/document/d/1ygIJl-Tp5_wJDKkSXrCC8h5K3WUG8D4BcJa_j70F0Zo",guide:"https://github.com/ankidroid/Anki-Android/wiki/Google-Summer-of-Code",chat:"https://discord.gg/qjzcRTx",email:""}
+];
+const Y5={lf:5,zulip:5,ml4sci:5,llvm:5,numfocus:5,mifos:5,rc:5,asf:5,julia:5,cern:5,owasp:5};
+const ORG={};O.forEach(o=>ORG[o.id]={...o,y5:Y5[o.id]});X.forEach(o=>ORG[o.id]=o);
+
+const gh=r=>[r,"https://github.com/"+r];
+const PJ=[
+ {name:"Zulip server & web app",orgId:"zulip",tech:["TypeScript","JavaScript","Handlebars","Python/Django"],y:[11,8,9,9,6],last:"2026-09-29",links:[gh("zulip/zulip")],
+  desc:"Team chat whose web client is written in TypeScript on top of a Django backend. Most GSoC work touches both.",tip:"The largest single JS repo in GSoC. <b>Merged PRs are expected before you apply.</b>"},
+ {name:"Oppia web platform",orgId:"oppia",tech:["Angular","TypeScript","Python","Google App Engine"],y:[13,5,6,4,5],last:"2026-09-28",links:[gh("oppia/oppia")],
+  desc:"A free interactive learning platform. The frontend is Angular and TypeScript; projects cover lesson editors, learner dashboards and testing.",tip:"Strong onboarding docs. Oppia shortlists people who have already fixed issues in the repo."},
+ {name:"Rocket.Chat (server, web client & Apps-Engine)",orgId:"rc",tech:["TypeScript","Node.js","React","MongoDB","Meteor"],y:[9,5,4,7,7],last:"2026-09-29",links:[gh("RocketChat/Rocket.Chat"),gh("RocketChat/Rocket.Chat.ReactNative")],
+  desc:"Open-source team chat. The monorepo holds the Node.js server, the React client, Livechat, UI Kit and the Apps-Engine.",tip:"<b>A good match for MERN students.</b> The org also takes people for AI apps and the React Native mobile app."},
+ {name:"CircuitVerse simulator",orgId:"cv",tech:["Vue.js","JavaScript","TypeScript","Ruby on Rails"],y:[4,4,5,6,6],last:"2026-09-30",links:[gh("CircuitVerse/cv-frontend-vue"),gh("CircuitVerse/CircuitVerse")],
+  desc:"A browser-based digital logic circuit simulator used in colleges. The simulator frontend is being rebuilt in Vue.",tip:"Growing every year. Good for students who like canvas and UI work."},
+ {name:"Music Blocks",orgId:"sugar",tech:["JavaScript","TypeScript","React","Web Audio"],y:[4,3,5,7,5],last:"2026-09-29",links:[gh("sugarlabs/musicblocks"),gh("sugarlabs/musicblocks-v4")],
+  desc:"A visual programming language for music and math, used in schools. v3 is plain JavaScript; v4 is a TypeScript + React rewrite.",tip:"The biggest part of Sugar Labs. Friendly for first-time contributors."},
+ {name:"OpenMRS 3 frontend (O3)",orgId:"openmrs",tech:["React","TypeScript","single-spa","Carbon UI"],y:[4,5,4,5,5],last:"2026-09-29",links:[gh("openmrs/openmrs-esm-patient-chart"),gh("openmrs/openmrs-esm-core"),gh("openmrs/openmrs-esm-form-builder")],
+  desc:"The React micro-frontend for OpenMRS, the medical records system used in hospitals across Africa and Asia.",tip:"Steady 4–5 selections a year. Real-world healthcare impact looks good on a resume."},
+ {name:"p5.js & p5.js Web Editor",orgId:"processing",tech:["JavaScript","WebGL","React","Node.js/Express","MongoDB"],y:[6,6,0,3,5],last:"2026-09-29",links:[gh("processing/p5.js"),gh("processing/p5.js-web-editor")],
+  desc:"The creative-coding library for the browser, plus its online editor, which is a full MERN-stack app.",tip:"The web editor is the best fit for MERN students. The org skipped GSoC in 2024."},
+ {name:"JSON Schema tooling & website",orgId:"jsonschema",tech:["TypeScript","JavaScript","Next.js","Node.js"],y:[0,0,8,6,5],last:"2026-09-29",links:[gh("json-schema-org/website"),["json-schema-org","https://github.com/json-schema-org"]],
+  desc:"The JSON Schema spec and its ecosystem: the Next.js website, validators, bowtie test harness and learning tools.",tip:"Joined GSoC in 2024 and took 5–8 people every year since."},
+ {name:"ListenBrainz",orgId:"metabrainz",tech:["React","TypeScript","Python/Flask","PostgreSQL"],y:[4,4,3,2,4],last:"2026-09-29",links:[gh("metabrainz/listenbrainz-server")],
+  desc:"An open music-listening tracker and recommendation service. The site is React + TypeScript over a Python backend.",tip:"MetaBrainz also runs MusicBrainz and BookBrainz, which have JS projects too."},
+ {name:"Eventyay",orgId:"fossasia",tech:["Vue.js","JavaScript","Python/Django","WebRTC"],y:[0,0,2,4,11],last:"2026-09-30",links:[gh("fossasia/eventyay")],
+  desc:"FOSSASIA's event management platform: ticketing, talks, badges, check-in and live video.",tip:"<b>Fastest-growing JS project:</b> 11 selections in 2026."},
+ {name:"cBioPortal frontend",orgId:"cbio",tech:["React","TypeScript","MobX","D3"],y:[1,4,5,2,4],last:"2026-09-29",links:[gh("cBioPortal/cbioportal-frontend")],
+  desc:"A web app for exploring cancer genomics data, with heavy data visualization in React.",tip:"Good for students who enjoy charts and data-heavy UIs."},
+ {name:"Joplin",orgId:"joplin",tech:["TypeScript","React","React Native","Electron"],y:[6,0,4,0,5],last:"2026-09-29",links:[gh("laurent22/joplin")],
+  desc:"An open-source note-taking app with desktop, mobile and web clients built from one TypeScript codebase.",tip:"Joplin takes part every other year so far (2022, 2024, 2026)."},
+ {name:"stdlib",orgId:"stdlib",tech:["JavaScript","Node.js","TypeScript","C","WebAssembly"],y:[0,0,4,5,5],last:"2026-09-29",links:[gh("stdlib-js/stdlib")],
+  desc:"A standard library for numerical and scientific computing in JavaScript and Node.js.",tip:"Good for students with strong DSA and math who want pure JS work."},
+ {name:"Jitsi Meet",orgId:"jitsi",tech:["React","React Native","JavaScript","WebRTC"],y:[3,0,3,4,3],last:"2026-09-29",links:[gh("jitsi/jitsi-meet")],
+  desc:"Open-source video conferencing. The web and mobile apps are React and React Native over WebRTC.",tip:"Good for students interested in real-time media."},
+ {name:"Mifos X Web App",orgId:"mifos",tech:["Angular","TypeScript","Material"],y:[1,3,3,1,3],last:"2026-09-29",links:[gh("openMF/web-app")],
+  desc:"The Angular frontend for the Apache Fineract core banking platform.",tip:"Pairs well with Fineract (Java) if a student knows both frontend and backend."}
+];
+const PV=[
+ {name:"MIT App Inventor",orgId:"appinventor",tech:["Java","GWT","Blockly (JS)","Android"],y:[5,6,5,5,3],last:"2026-09-28",links:[gh("mit-cml/appinventor-sources")],
+  desc:"A block-based tool that lets beginners build Android and iOS apps. The server and compiler are Java; the editor uses Blockly.",tip:"The most Java selections of any single repo, though 2026 dropped to 3."},
+ {name:"Jenkins",orgId:"jenkins",tech:["Java","Maven","Groovy","JavaScript"],y:[4,4,5,5,5],last:"2026-09-29",links:[gh("jenkinsci/jenkins"),gh("jenkinsci/plugin-modernizer-tool"),["jenkinsci","https://github.com/jenkinsci"]],
+  desc:"The CI/CD automation server. Projects cover plugins, the plugin modernizer and plugin-health tooling.",tip:"<b>Very steady:</b> 4–5 every year. Useful DevOps experience for backend roles."},
+ {name:"Apache Fineract",orgId:"mifos",tech:["Java","Spring Boot","REST","MySQL/PostgreSQL"],y:[3,3,2,3,9],last:"2026-09-29",links:[gh("apache/fineract")],
+  desc:"Open-source core banking platform used by microfinance institutions: loans, savings, accounting and REST APIs.",tip:"<b>Best Spring Boot project in GSoC.</b> Slots come from both Mifos and Apache (5 via Apache in 2026)."},
+ {name:"Apache Airavata",orgId:"asf",tech:["Java","Python","React","gRPC"],y:[5,2,2,5,3],last:"2026-09-29",links:[gh("apache/airavata")],
+  desc:"Middleware for science gateways: job submission to clusters, managed file transfer and research catalogs.",tip:"The most consistent Apache project in GSoC."},
+ {name:"Checkstyle",orgId:"checkstyle",tech:["Java","ANTLR","Maven"],y:[1,2,3,5,6],last:"2026-09-29",links:[gh("checkstyle/checkstyle")],
+  desc:"The static analysis tool that checks Java code style. Projects add new checks and grammar support.",tip:"<b>Rising every year</b>, from 1 to 6. Good for students who like parsers and clean code."},
+ {name:"Kotlin libraries & tooling",orgId:"kotlin",tech:["Kotlin","JVM","Multiplatform","Gradle"],y:[0,4,4,7,2],last:"2026-09-16",links:[["github.com/Kotlin","https://github.com/Kotlin"],gh("Kotlin/kotlinx.coroutines")],
+  desc:"Projects from the Kotlin Foundation and JetBrains: kotlinx libraries, Kotlin Multiplatform, compiler and IDE tooling.",tip:"Only 2 slots in 2026, so competition is high."},
+ {name:"Mifos mobile apps",orgId:"mifos",tech:["Kotlin","Compose","Android","Multiplatform"],y:[3,3,4,3,2],last:"2026-09-21",links:[gh("openMF/android-client"),gh("openMF/mifos-mobile"),gh("openMF/mobile-wallet")],
+  desc:"The field-officer app, the mobile banking app and the Mifos Pay wallet, moving to Kotlin Multiplatform.",tip:"Mifos selects many students from India."},
+ {name:"Catroid (Pocket Code)",orgId:"catrobat",tech:["Kotlin","Java","Android"],y:[6,2,1,2,2],last:"2026-08-24",links:[gh("Catrobat/Catroid")],
+  desc:"A visual programming app for Android that lets teenagers build games and animations.",tip:"Catrobat also takes Flutter and game-design projects each year."},
+ {name:"OpenELIS Global 2",orgId:"openelis",tech:["Java","Spring","React","PostgreSQL"],y:[0,0,5,4,4],last:"2026-09-29",links:[gh("DIGI-UW/OpenELIS-Global-2")],
+  desc:"A laboratory information system used by public health labs. Java/Spring backend with a React frontend.",tip:"<b>Full-stack Java + React.</b> Joined GSoC in 2024."},
+ {name:"OneBusAway",orgId:"otsf",tech:["Java","Android","Kotlin","Go"],y:[0,0,5,4,4],last:"2026-09-26",links:[gh("OneBusAway/onebusaway-android"),["OneBusAway org","https://github.com/OneBusAway"]],
+  desc:"Real-time public transit apps and servers used by transit agencies in the US and elsewhere.",tip:"Counts include some iOS and Go work in the same org."},
+ {name:"Apache Beam",orgId:"asf",tech:["Java","Python","Go","YAML"],y:[1,2,2,4,3],last:"2026-09-29",links:[gh("apache/beam")],
+  desc:"A unified model for batch and streaming data pipelines that run on Flink, Spark and Google Dataflow.",tip:"Good for students interested in data engineering."},
+ {name:"Java PathFinder (JPF)",orgId:"jpf",tech:["Java","JVM","Model checking"],y:[2,2,3,3,2],last:"2026-09-17",links:[gh("javapathfinder/jpf-core")],
+  desc:"A JVM written in Java that model-checks programs to find concurrency bugs. Originally built at NASA.",tip:"Deep JVM internals. Small org with 2–3 slots, so competition is focused."},
+ {name:"OpenMRS core",orgId:"openmrs",tech:["Java","Spring","Hibernate","FHIR"],y:[0,3,1,4,3],last:"2026-09-29",links:[gh("openmrs/openmrs-core")],
+  desc:"The Java backend of the OpenMRS medical records platform: modules, FHIR APIs, audit logging and scaling.",tip:"Pairs with the O3 React frontend in the JS list."},
+ {name:"JabRef",orgId:"jabref",tech:["Java","JavaFX","AI"],y:[1,0,3,3,3],last:"2026-09-29",links:[gh("JabRef/jabref")],
+  desc:"A desktop reference manager for researchers, built with Java and JavaFX.",tip:"One of the few desktop Java apps in GSoC. Beginner-friendly issues."},
+ {name:"AnkiDroid",orgId:"anki",tech:["Kotlin","Android","Rust"],y:[3,0,3,2,2],last:"2026-09-29",links:[gh("ankidroid/Anki-Android")],
+  desc:"The Android app for Anki flashcards, with millions of users.",tip:"Pure Android/Kotlin work with a large, active user base."}
+];
+
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmtDate=d=>new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+const short=u=>u.replace(/^https?:\/\/(www\.)?/,"").replace(/\/$/,"");
+
+function orgLine(o){
+  if(!o) return '';
+  const L=[[o.ideas,'2026 ideas'],[o.guide,'How to apply'],[o.chat,'Chat / forum'],[o.site,'Website']].filter(a=>a[0]).map(([u,l])=>`<a href="${u}" target="_blank" rel="noopener">${l}</a>`).join('');
+  return `<div class="orgline"><div class="top"><b>${esc(o.name)}</b><span class="pill">${o.y5}/5 years in GSoC 2022–26</span><span class="pill blue">${o.slots} slots in 2026</span></div><div class="ol">${L}</div>${o.email?`<div>Email: <span class="mono">${esc(o.email)}</span></div>`:''}</div>`;
+}
+function card(p,i,inline){
+  const total=p.y.reduce((a,b)=>a+b,0);
+  const bars=p.y.map((v,k)=>`<div class="bar${k===4?" now":""}"><i style="height:${Math.max(3,Math.round(v/MAX*48))}px"></i><em>${v}</em></div>`).join("");
+  return `<article class="proj" data-f="${(p.f||[]).join(" ")}">
+    <div class="rank">${i+1}</div>
+    <div class="main">
+      ${inline?"":`<div class="org"><b>${esc(p.org)}</b> · <a href="#org-${p.orgId}">org details</a></div>`}
+      <h3>${esc(p.name)}</h3>
+      <p class="desc">${esc(p.desc)}</p>
+      <div class="tags">${p.tech.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <div class="links">${p.links.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>
+      <p class="tip">${p.tip}</p>
+      ${inline?orgLine(ORG[p.orgId]):""}
+    </div>
+    <div class="side">
+      <div class="stat"><span class="n">${total}</span><span class="l">selected<br>2022–26</span></div>
+      <div><div class="bars" aria-label="Selections per year: ${p.y.map((v,k)=>YEARS[k]+": "+v).join(", ")}">${bars}</div>
+      <div class="yrs">${YEARS.map(y=>`<span>'${String(y).slice(2)}</span>`).join("")}</div></div>
+      <span class="status${p.cycle?" cycle":""}">${p.cycle?"Active per GSoC cycle":"Active"} · ${fmtDate(p.last)}</span>
+    </div>
+  </article>`;
+}
+function link(u,label){return u?`<a href="${u}" target="_blank" rel="noopener">${esc(label||short(u))}</a>`:"—"}
+function orgCard(o){
+  const projs=P.map((p,i)=>p.orgId===o.id||(o.id==="asf"&&p.org.includes("Apache"))?`#${i+1}`:null).filter(Boolean).join(", ");
+  return `<article class="orgcard" id="org-${o.id}">
+    <h3>${esc(o.name)}</h3>
+    <div class="meta"><span class="pill">${o.years} years in GSoC · since ${o.since}</span><span class="pill blue">${o.slots} slots in 2026</span></div>
+    <dl>
+      <dt>Projects here</dt><dd>${projs}</dd>
+      <dt>Tech</dt><dd>${esc(o.tech)}</dd>
+      <dt>Website</dt><dd>${link(o.site)}</dd>
+      <dt>Ideas list</dt><dd>${link(o.ideas,"2026 ideas page")}</dd>
+      <dt>How to apply</dt><dd>${link(o.guide,"Application guide")}</dd>
+      <dt>Chat / forum</dt><dd>${o.chat?link(o.chat):"Contact mentors listed on each idea"}</dd>
+      <dt>Email</dt><dd>${o.email?`<span class="mono">${esc(o.email)}</span>`:"—"}</dd>
+    </dl>
+  </article>`;
+}
+document.getElementById("list").innerHTML=P.map((p,i)=>card(p,i,false)).join("");
+document.getElementById("list-js").innerHTML=PJ.map((p,i)=>card(p,i,true)).join("");
+document.getElementById("list-java").innerHTML=PV.map((p,i)=>card(p,i,true)).join("");
+document.getElementById("orgcards").innerHTML=O.map(orgCard).join("");
+
+const chips=[...document.querySelectorAll(".chip")];
+const countEl=document.getElementById("count");
+function apply(f){
+  let n=0;
+  document.querySelectorAll("#list .proj").forEach(el=>{const show=f==="all"||el.dataset.f.split(" ").includes(f);el.hidden=!show;if(show)n++;});
+  chips.forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.f===f)));
+  countEl.textContent=`Showing ${n} of ${P.length}`;
+  try{localStorage.setItem("gsoc-filter",f)}catch(e){}
+}
+chips.forEach(c=>c.addEventListener("click",()=>apply(c.dataset.f)));
+let start="all";try{start=localStorage.getItem("gsoc-filter")||"all"}catch(e){}
+apply(chips.some(c=>c.dataset.f===start)?start:"all");
+
+const tabs=[...document.querySelectorAll(".tab")];
+function show(v){
+  tabs.forEach(t=>t.setAttribute("aria-selected",String(t.dataset.v===v)));
+  ["all","js","java"].forEach(k=>{document.getElementById("view-"+k).hidden=k!==v});
+  try{localStorage.setItem("gsoc-view",v)}catch(e){}
+}
+tabs.forEach(t=>t.addEventListener("click",()=>show(t.dataset.v)));
+let sv=location.hash.replace("#","");
+if(!["all","js","java"].includes(sv)){try{sv=localStorage.getItem("gsoc-view")||"all"}catch(e){sv="all"}}
+show(["all","js","java"].includes(sv)?sv:"all");
+</script>
+</body>
+</html>
