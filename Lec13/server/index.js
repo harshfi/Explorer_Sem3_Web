@@ -20,6 +20,14 @@ app.get('/getProducts',async(req,res)=>{
     res.send(products)
 })
 
+app.delete('/delete/:id',async (req,res)=>{
+   let {id}=req.params;
+   console.log(id)
+   await product.findByIdAndDelete(id);
+    const products=await product.find();
+    res.send(products)
+})
+
 
 
 app.listen(3000,()=>{

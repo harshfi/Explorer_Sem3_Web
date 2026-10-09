@@ -7,3 +7,8 @@
     width:200px;
     margin: 20px;
 }
+.cards{
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
