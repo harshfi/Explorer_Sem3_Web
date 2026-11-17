@@ -1,0 +1,16 @@
+.link {
+    margin: 20px;
+    /* color: white; */
+}
+
+nav {
+    border: 2px solid black;
+    margin: auto;
+    width: 500px;
+    /* background-color: black; */
+    /* color: white; */
+}
+
+.element {
+    margin: auto;
+}
