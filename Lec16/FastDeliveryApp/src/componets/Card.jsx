@@ -1,6 +1,21 @@
 import '../style.css'
+import { useContext } from 'react'
+import { CartContext } from '../context/cartContext'
 
 export default function Card({ detail }) {
+
+    const { cart, setCart } = useContext(CartContext)
+
+    function addCart(product) {
+
+        const newCart = [...cart, product];
+        setCart(newCart);
+        console.log("product has been added")
+        console.log(cart)
+    }
+
+
+
     return (
         <article className="food-card">
             <img
@@ -18,7 +33,7 @@ export default function Card({ detail }) {
 
                 <p>{detail.desc}</p>
 
-                <button className="food-card__button" type="button">
+                <button onClick={() => addCart(detail)} className="food-card__button" type="button">
                     Add to Cart
                 </button>
             </div>
